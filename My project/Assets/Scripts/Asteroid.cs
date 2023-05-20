@@ -2,32 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : Movable
 {
-    public float asteroidSpeed = 10.0f;
-    public float xBound = -30.0f;
+
     public AudioClip explosionSound;
     public AudioSource audioSource;
-    // Start is called before the first frame update
+    private MeshRenderer asteroidMeshRenderer;
+    private Collider asteroidCollider;
     void Start()
     {
+        asteroidMeshRenderer = gameObject.GetComponent<MeshRenderer>();
+        asteroidCollider = gameObject.GetComponent<Collider>();
         audioSource = GetComponent<AudioSource>();
     }
     public void DestroyWithProjectile()
     {
         audioSource.PlayOneShot(explosionSound, 1f);
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.GetComponent<Collider>().enabled = false;
+        asteroidMeshRenderer.enabled = false;
+        asteroidCollider.enabled = false;
         Destroy(gameObject, 1f);
     }
-    // Update is called once per frame
     void Update()
     {
-        //Move the asteroid forward
-        transform.Translate(Vector3.forward * Time.deltaTime * asteroidSpeed);
-        if (transform.position.x < xBound)
-        {
-            Destroy(gameObject);
-        }
+        Move(speed, bound);
     }
 }

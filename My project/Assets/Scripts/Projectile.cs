@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Projectile : MonoBehaviour
+public class Projectile : Movable
 {
     public float projectileSpeed = 10.0f;
     public float xBound = 30.0f;
@@ -27,16 +27,8 @@ public class Projectile : MonoBehaviour
         gameObject.GetComponent<Collider>().enabled = false;
         Destroy(gameObject, 1f);
     }
-    // Update is called once per frame
     void Update()
     {
-        //Move the projectile forward
-        transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
-
-        //Destroy the projectile out of players view
-        if(transform.position.x > xBound)
-        {
-            Destroy(gameObject);
-        }
+        Move(speed, bound);
     }
 }

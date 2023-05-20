@@ -1,33 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 public class PlayerController : MonoBehaviour
 {
-    public GameObject projectile;
-    public GameObject[] menuButtons = new GameObject[2];
-    public TextMeshProUGUI tmProFuelLevel;
-    public TextMeshProUGUI tmProPoints;
-    public TextMeshProUGUI tmProAmmo;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button menuButton;
+    [SerializeField] private TextMeshProUGUI tmProFuelLevel;
+    [SerializeField] private TextMeshProUGUI tmProPoints;
+    [SerializeField] private TextMeshProUGUI tmProAmmo;
 
-    public float speed = 3.0f;
-    public float zRange = 7.0f;
-    public int ammo = 100;
-    public float fuelDepletionSpeed = 0.1f;
+    [SerializeField] private float speed = 3.0f;
+    [SerializeField] private float zRange = 7.0f;
+    [SerializeField] private float fuelDepletionSpeed = 0.1f;
+
     private float startFuelDepletionSpeed;
-
     static public int points = 0;
     private float fuelLevel;
     private float playerInput;
     private bool flag = false;
     private bool isMenuOff = true;
+    private int ammo = 100;
+
 
     void Awake()
     {
         fuelLevel = 100f;
         Time.timeScale = 0;
-        points = 0;
         startFuelDepletionSpeed = fuelDepletionSpeed;
     }
     //End the game when player collides with asteroid
@@ -46,14 +48,14 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.GetComponent<Fuel>())
         {
             if(fuelLevel < 80) 
-                fuelLevel += 20;
+                fuelLevel += Fuel.fuelBoost;
             else
                 fuelLevel = 100;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.GetComponent<Ammo>())
         {
-            ammo += 10;
+            ammo += Ammo.ammoBoost;
             Destroy(other.gameObject);
         }
     }
@@ -135,8 +137,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Menu(bool state)
     {
-        menuButtons[0].SetActive(state);
-        menuButtons[1].SetActive(state);
+        continueButton.gameObject.SetActive(state);
+        menuButton.gameObject.SetActive(state);
         if (state == true)
             Time.timeScale = 0;
         else if (state == false)

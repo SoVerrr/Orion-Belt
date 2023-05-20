@@ -434,13 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e969d945b4345e943b2f4f0ba0d1fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroid: {fileID: 8640085769485644171, guid: 85dd88bddb4761840ba1027aa2520222, type: 3}
-  fuel: {fileID: 1263403537154670146, guid: 907913f176bc24941b0d525e90eea5f7, type: 3}
-  ammo: {fileID: 1263403537154670146, guid: 54ecddecabe696a41858624183c86eba, type: 3}
-  timeRemainingAsteroid: 1
-  timeRemainingFuel: 2
-  timeRemainingAmmo: 10
-  halfBoxSize: {x: 0.5, y: 0.5, z: 0.5}
+  asteroid: {fileID: 5677419098918119640, guid: 85dd88bddb4761840ba1027aa2520222, type: 3}
+  fuel: {fileID: 2111514340, guid: 907913f176bc24941b0d525e90eea5f7, type: 3}
+  ammo: {fileID: 4197164336270830672, guid: 54ecddecabe696a41858624183c86eba, type: 3}
 --- !u!4 &263235467
 Transform:
   m_ObjectHideFlags: 0
@@ -2002,9 +1998,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 587835413}
     - target: {fileID: 4270335575219732217, guid: 519ec3757dbfbcc4f9ba8c4a4fce081b, type: 3}
+      propertyPath: exitButton
+      value: 
+      objectReference: {fileID: 105297296}
+    - target: {fileID: 4270335575219732217, guid: 519ec3757dbfbcc4f9ba8c4a4fce081b, type: 3}
       propertyPath: tmProPoints
       value: 
       objectReference: {fileID: 1152331024}
+    - target: {fileID: 4270335575219732217, guid: 519ec3757dbfbcc4f9ba8c4a4fce081b, type: 3}
+      propertyPath: resumeButton
+      value: 
+      objectReference: {fileID: 2043205430}
     - target: {fileID: 4270335575219732217, guid: 519ec3757dbfbcc4f9ba8c4a4fce081b, type: 3}
       propertyPath: tmProFuelLevel
       value: 

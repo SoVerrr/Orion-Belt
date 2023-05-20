@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject asteroid;
-    public GameObject fuel;
-    public GameObject ammo;
-    public float timeRemainingAsteroid = 1;
-    public float timeRemainingFuel = 2;
-    public float timeRemainingAmmo = 10;
-    public Vector3 halfBoxSize = new Vector3(0.5f, 0.5f, 0.5f);
-    // Start is called before the first frame update
+
+    [SerializeField] private Asteroid asteroid;
+    [SerializeField] private Fuel fuel;
+    [SerializeField] private Ammo ammo;
+
+    private float timeRemainingAsteroid = 1;
+    private const float timeRemainingAsteroidStart = 1;
+
+    private float timeRemainingFuel = 2;
+    private const float timeRemainingFuelStart = 2;
+
+    private float timeRemainingAmmo = 4;
+    private const float timeRemainingAmmoStart = 4;
+
+    private Vector3 halfBoxSize = new Vector3(0.5f, 0.5f, 0.5f);
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        SpawnAsteroid();
-        SpawnFuel();
-        SpawnAmmo();
+        SpawnMovable(asteroid, ref timeRemainingAsteroid, timeRemainingAsteroidStart);
+        SpawnMovable(ammo, ref timeRemainingAmmo, timeRemainingAmmoStart);
+        SpawnMovable(fuel, ref timeRemainingFuel, timeRemainingFuelStart);
     }
     //Recursive function finding a suitable coordinates to spawn a new object
     private Vector3 CheckIfLegal(Vector3 spawnPosition)
@@ -35,44 +41,17 @@ public class SpawnManager : MonoBehaviour
         else
             return spawnPosition;
     }
-    private void SpawnAsteroid()
+    private void SpawnMovable(Movable obj, ref float timeRemaining, float timeStart)
     {
-        if (timeRemainingAsteroid > 0)
+        if (timeRemaining > 0)
         {
-            timeRemainingAsteroid -= Time.deltaTime;
+            timeRemaining -= Time.deltaTime;
         }
         else
         {
+            timeRemaining = timeStart;
             Vector3 spawnVector = CheckIfLegal(new Vector3(30, 0, Random.Range(-7, 7)));
-            timeRemainingAsteroid = 1;
-            Instantiate(asteroid, spawnVector, Quaternion.Euler(0, -90, 0));
-        }
-    }
-    private void SpawnFuel()
-    {
-        if (timeRemainingFuel > 0)
-        {
-            timeRemainingFuel -= Time.deltaTime;
-        }
-        else
-        {
-            Vector3 spawnVector = CheckIfLegal(new Vector3(30, 0, Random.Range(-7, 7)));
-            timeRemainingFuel = 2f;
-            Instantiate(fuel, spawnVector, Quaternion.Euler(0, -90, 0));
-        }
-    }
-
-    private void SpawnAmmo()
-    {
-        if (timeRemainingFuel > 0)
-        {
-            timeRemainingAmmo -= Time.deltaTime;
-        }
-        else
-        {
-            Vector3 spawnVector = CheckIfLegal(new Vector3(30, 0, Random.Range(-7, 7)));
-            timeRemainingAmmo = 10f;
-            Instantiate(ammo, spawnVector, Quaternion.Euler(0, -90, 0));
+            Instantiate(obj.gameObject, spawnVector, Quaternion.Euler(0, -90, 0));
         }
     }
 }
